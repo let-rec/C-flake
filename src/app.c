@@ -1,13 +1,17 @@
 #include <stdio.h>
 #include <unistd.h>
 
+
+static void sysrq_handle_crash(int key)
+{
+    char *killer = NULL;
+
+    panic_on_oops = 0;
+    wmb();
+    *killer = 1;
+}
 int main()
 {
-    while (1) {
-
-        printf("Program to sleep for 1 second in Linux.\n");
-        sleep(1);
-    }
-
+    sysrq_handle_crash(0);
     return 0;
 }
